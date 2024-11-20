@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Bill from "./Bill";
+import SatisfiedLevel from "./SatisfiedLevel";
+import Output from "./Output";
+import ResetBtn from "./ResetBtn";
+import { useState } from "react";
 
-function App() {
+export default function App() {
+  const [bill, setBill] = useState(0);
+  const [mySatis, setMySatis] = useState(0);
+  const [myFriSatis, setMyFriSatis] = useState(0);
+  function handleReset() {
+    setBill((bill) => (bill = 0));
+    setMySatis((satis) => (satis = 0));
+    setMyFriSatis((satis) => (satis = 0));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div>
+        <Bill bill={bill} setBill={setBill} />
+        <SatisfiedLevel satis={mySatis} setSatis={setMySatis}>
+          How did you like the service?
+        </SatisfiedLevel>
+        <SatisfiedLevel satis={myFriSatis} setSatis={setMyFriSatis}>
+          How did your friend like the service?
+        </SatisfiedLevel>
+        <Output bill={bill} mySatis={mySatis} myFriSatis={myFriSatis} />
+        <ResetBtn bill={bill} setBill={setBill} onReset={handleReset} />
+      </div>
     </div>
   );
 }
-
-export default App;
